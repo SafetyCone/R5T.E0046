@@ -1,0 +1,6 @@
+R5T.E0046.Library - A menagerie of invalid namespace names.
+
+
+# Notes:
+
+* The compilation unit context provider assumes it will work in a project file (use a different namespace for another compilation unit context provider that does not assume this).

@@ -1,0 +1,32 @@
+﻿R5T.E0046 - Experiment with all of the new code construction technologies.
+
+All technologies:
+* ICompilationUnitContext, IProjectFileContext.
+	* Separate from IProjectRepository, since working on project file paths is more widely applicable than working on project identities.
+	* InAcquiredCompilationUnitContext()
+	? ICompilationUnitContext combined or separate from IProjectFileContext?
+		=> Separate! Methods that modify the project context will request the project context.
+		? Provide tool to create dummy project context (and add property to check whether project file context is a dummy)?
+			=> No! Create two client methods, one that only does compilation unit context work, one that does project file context work, and calls the compilation unit-only method.
+		=> It's actually a CodeFileContext/CompilationUnitContext split. (physical vs. logical)
+			* Using CodeFileContext and CodeFileContextWithoutProjectFile, CodeFileContext : CodeFileContextWithoutProjectFile
+
+* UsingDirectivesFormatter service.
+	* What would be the services for using directive blocking and ordering?
+		* UsingNamespaceDirectiveBlockLabelProvider - Get block labels.
+		* UsingDirectiveBlockSortOrder.RivetNamespaces() - Order block labels.
+		* UsingNamespaceDirectiveSyntaxComparerProvider (changed to work on actual UsingDirectiveSyntax instances) - Order UsingDirectiveSyntaxes within blocks.
+		* UsingNameAliasDirectiveBlockLabelProvider - Get block labels.
+		* UsingDirectiveBlockSortOrder.RivetNameAliases() - Order block labels.
+		* UsingNameAliasDirectiveSyntaxComparerProvider (changed to work on actual using directive syntax instances) - Order UsingDirectiveSyntaxes within blocks.
+		=> Service to get, order, set, and space using directives. (UsingDirectivesFormatter)
+
+* TypedSyntaxAnnotation
+	* SyntaxAnnotationContext<TNode>
+	=> Use var typedSyntaxAnnotation = compilationUnit.AddUsing(using, out compilationUnit);
+
+
+	# Notes:
+
+	* CompilationUnitContext does *not* contain a compilation unit!
+	* ProjectFileContext does *not* have an IProjectRepository.
