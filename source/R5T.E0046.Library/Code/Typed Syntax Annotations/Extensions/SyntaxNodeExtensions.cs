@@ -10,7 +10,7 @@ using R5T.E0046.Library;
 
 namespace System
 {
-    public static class SyntaxNodeExtensions
+    public static partial class SyntaxNodeExtensions
     {
         public static TNode Annotate_Typed<TNode>(this TNode node,
             out SyntaxNodeSyntaxAnnotation<TNode> annotation)

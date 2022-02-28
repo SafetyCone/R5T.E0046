@@ -18,11 +18,13 @@ namespace R5T.E0046
         /// </summary>
         public static IServiceCollection AddO999_Scratch(this IServiceCollection services,
             IServiceAction<ICompilationUnitContextProvider> compilationUnitContextProviderAction,
-            IServiceAction<IStringlyTypedPathOperator> stringlyTypedPathOperatorAction)
+            IServiceAction<IStringlyTypedPathOperator> stringlyTypedPathOperatorAction,
+            IServiceAction<IUsingDirectivesFormatter> usingDirectivesFormatterAction)
         {
             services
                 .Run(compilationUnitContextProviderAction)
                 .Run(stringlyTypedPathOperatorAction)
+                .Run(usingDirectivesFormatterAction)
                 .AddSingleton<O999_Scratch>();
 
             return services;

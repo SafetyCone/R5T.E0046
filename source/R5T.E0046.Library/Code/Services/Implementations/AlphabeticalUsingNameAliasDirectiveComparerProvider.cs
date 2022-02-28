@@ -10,7 +10,7 @@ using R5T.T0064;
 namespace R5T.E0046.Library
 {
     [ServiceImplementationMarker]
-    public class UsingNameAliasDirectiveSyntaxComparerProvider : IUsingNameAliasDirectiveComparerProvider, IServiceImplementation
+    public class AlphabeticalUsingNameAliasDirectiveComparerProvider : IUsingNameAliasDirectiveComparerProvider, IServiceImplementation
     {
         public Task<IComparer<NameAlias>> GetComparer(string _)
         {

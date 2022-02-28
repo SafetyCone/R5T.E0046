@@ -5,6 +5,12 @@ using R5T.T0064;
 
 namespace R5T.E0046.Library
 {
+    /// <summary>
+    /// Provides a set of services for extension methods to use to sort using annotations.
+    /// </summary>
+    /// <remarks>
+    /// Uses an "open-innards" strategy to allow extension methods to operate on any level of abstraction in the Roslyn syntax hierarchy.
+    /// </remarks>
     [ServiceDefinitionMarker]
     public interface IUsingDirectivesFormatter : IServiceDefinition
     {

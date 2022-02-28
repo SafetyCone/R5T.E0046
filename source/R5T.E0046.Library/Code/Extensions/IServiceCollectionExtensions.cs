@@ -15,11 +15,61 @@ namespace R5T.E0046.Library
     public static class IServiceCollectionExtensions
     {
         /// <summary>
+        /// Adds the <see cref="AlphabeticalUsingNamespaceDirectiveComparerProvider"/> implementation of <see cref="IUsingNamespaceDirectiveComparerProvider"/> as a <see cref="ServiceLifetime.Singleton"/>.
+        /// </summary>
+        public static IServiceCollection AddAlphabeticalUsingNamespaceDirectiveComparerProvider(this IServiceCollection services)
+        {
+            services.AddSingleton<IUsingNamespaceDirectiveComparerProvider, AlphabeticalUsingNamespaceDirectiveComparerProvider>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the <see cref="AlphabeticalUsingNameAliasDirectiveComparerProvider"/> implementation of <see cref="IUsingNameAliasDirectiveComparerProvider"/> as a <see cref="ServiceLifetime.Singleton"/>.
+        /// </summary>
+        public static IServiceCollection AddAlphabeticalUsingNameAliasDirectiveComparerProvider(this IServiceCollection services)
+        {
+            services.AddSingleton<IUsingNameAliasDirectiveComparerProvider, AlphabeticalUsingNameAliasDirectiveComparerProvider>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the <see cref="RivetUsingNamespaceDirectiveBlockSortOrderProvider"/> implementation of <see cref="IUsingNamespaceDirectiveBlockSortOrderProvider"/> as a <see cref="ServiceLifetime.Singleton"/>.
+        /// </summary>
+        public static IServiceCollection AddRivetUsingNamespaceDirectiveBlockSortOrderProvider(this IServiceCollection services)
+        {
+            services.AddSingleton<IUsingNamespaceDirectiveBlockSortOrderProvider, RivetUsingNamespaceDirectiveBlockSortOrderProvider>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the <see cref="RivetUsingNameAliasDirectiveBlockSortOrderProvider"/> implementation of <see cref="IUsingNameAliasDirectiveBlockSortOrderProvider"/> as a <see cref="ServiceLifetime.Singleton"/>.
+        /// </summary>
+        public static IServiceCollection AddRivetUsingNameAliasDirectiveBlockSortOrderProvider(this IServiceCollection services)
+        {
+            services.AddSingleton<IUsingNameAliasDirectiveBlockSortOrderProvider, RivetUsingNameAliasDirectiveBlockSortOrderProvider>();
+
+            return services;
+        }
+
+        /// <summary>
         /// Adds the <see cref="UsingNameAliasDirectiveBlockLabelProvider"/> implementation of <see cref="IUsingNameAliasDirectiveBlockLabelProvider"/> as a <see cref="ServiceLifetime.Singleton"/>.
         /// </summary>
         public static IServiceCollection AddUsingNameAliasDirectiveBlockLabelProvider(this IServiceCollection services)
         {
             services.AddSingleton<IUsingNameAliasDirectiveBlockLabelProvider, UsingNameAliasDirectiveBlockLabelProvider>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the <see cref="UsingNamespaceDirectiveBlockLabelProvider"/> implementation of <see cref="IUsingNamespaceDirectiveBlockLabelProvider"/> as a <see cref="ServiceLifetime.Singleton"/>.
+        /// </summary>
+        public static IServiceCollection AddUsingNamespaceDirectiveBlockLabelProvider(this IServiceCollection services)
+        {
+            services.AddSingleton<IUsingNamespaceDirectiveBlockLabelProvider, UsingNamespaceDirectiveBlockLabelProvider>();
 
             return services;
         }

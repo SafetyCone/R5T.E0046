@@ -26,7 +26,7 @@ All technologies:
 	=> Use var typedSyntaxAnnotation = compilationUnit.AddUsing(using, out compilationUnit);
 
 
-	# Notes:
+# Notes:
 
-	* CompilationUnitContext does *not* contain a compilation unit!
-	* ProjectFileContext does *not* have an IProjectRepository.
+* CompilationUnitContext does *not* contain a compilation unit!
+* ProjectFileContext does *not* have an IProjectRepository.

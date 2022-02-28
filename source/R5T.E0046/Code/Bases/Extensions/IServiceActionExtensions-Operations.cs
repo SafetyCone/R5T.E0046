@@ -17,11 +17,13 @@ namespace R5T.E0046
         /// </summary>
         public static IServiceAction<O999_Scratch> AddO999_ScratchAction(this IServiceAction _,
             IServiceAction<ICompilationUnitContextProvider> compilationUnitContextProviderAction,
-            IServiceAction<IStringlyTypedPathOperator> stringlyTypedPathOperatorAction)
+            IServiceAction<IStringlyTypedPathOperator> stringlyTypedPathOperatorAction,
+            IServiceAction<IUsingDirectivesFormatter> usingDirectivesFormatterAction)
         {
             var serviceAction = _.New<O999_Scratch>(services => services.AddO999_Scratch(
                 compilationUnitContextProviderAction,
-                stringlyTypedPathOperatorAction));
+                stringlyTypedPathOperatorAction,
+                usingDirectivesFormatterAction));
 
             return serviceAction;
         }

@@ -94,13 +94,29 @@ namespace R5T.E0046
                 visualStudioProjectFileOperatorActions.VisualStudioProjectFileOperatorAction,
                 visualStudioProjectFileReferencesProviderAction,
                 visualStudioSolutionFileOperatorActions.VisualStudioSolutionFileOperatorAction);
+            var usingNameAliasDirectiveBlockLabelProviderAction = Instances.ServiceAction.AddUsingNameAliasDirectiveBlockLabelProviderAction();
+            var usingNameAliasDirectiveBlockSortOrderProviderAction = Instances.ServiceAction.AddRivetUsingNameAliasDirectiveBlockSortOrderProviderAction();
+            var usingNameAliasDirectiveComparerProviderAction = Instances.ServiceAction.AddAlphabeticalUsingNameAliasDirectiveComparerProviderAction();
+            var usingNamespaceDirectiveBlockLabelProviderAction = Instances.ServiceAction.AddUsingNamespaceDirectiveBlockLabelProviderAction();
+            var usingNamespaceDirectiveBlockSortOrderProviderAction = Instances.ServiceAction.AddRivetUsingNamespaceDirectiveBlockSortOrderProviderAction();
+            var usingNamespaceDirectiveComparerProviderAction = Instances.ServiceAction.AddAlphabeticalUsingNamespaceDirectiveComparerProviderAction();
+
+            // Level 02.
+            var usingDirectivesFormatterAction = Instances.ServiceAction.AddUsingDirectivesFormatterAction(
+                usingNameAliasDirectiveBlockLabelProviderAction,
+                usingNameAliasDirectiveBlockSortOrderProviderAction,
+                usingNameAliasDirectiveComparerProviderAction,
+                usingNamespaceDirectiveBlockLabelProviderAction,
+                usingNamespaceDirectiveBlockSortOrderProviderAction,
+                usingNamespaceDirectiveComparerProviderAction);
 
             // Operations.
 
             // Level 01.
             var o999_ScratchAction = Instances.ServiceAction.AddO999_ScratchAction(
                 compilationUnitContextProviderAction,
-                servicesPlatform.StringlyTypedPathOperatorAction);
+                servicesPlatform.StringlyTypedPathOperatorAction,
+                usingDirectivesFormatterAction);
 
             // Run.
             services.MarkAsServiceCollectonConfigurationStatement()
