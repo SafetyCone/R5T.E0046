@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using R5T.Lombardy;
 
+using R5T.D0116;
+using R5T.D0117;
 using R5T.T0020;
-
-using R5T.E0046.Library;
+using R5T.X0003;
 
 
 namespace R5T.E0046
@@ -30,7 +32,146 @@ namespace R5T.E0046
 
         public async Task Run()
         {
-            await this.TryCompilationUnitContext();
+            await this.AddExtensionMethodBaseInstancesToProject();
+            //await this.CreateInstancesCodeFileAndClass();
+            //await this.TryCompilationUnitContext();
+        }
+
+#pragma warning disable IDE0051 // Remove unused private members
+
+        private async Task AddExtensionMethodBaseInstancesToProject()
+        {
+            // Inputs.
+            var projectFilePath = @"C:\Code\DEV\Git\GitHub\SafetyCone\Test\source\TestProject\TestProject.csproj";
+
+            var namespaceName = Instances.ProjectPathsOperator.GetDefaultProjectNamespaceName(projectFilePath);
+
+            var extensionMethodBaseInterfaceNamespacedTypeNames = new[]
+            {
+                "R5T.L0012.T001.IMSBuild",
+                "R5T.B0000.IObjectOperator",
+                "R5T.T0035.X002.IMicrosoftExtensionsNamespaceName",
+            };
+
+            // Run.
+            await this.CompilationUnitContextProvider.AddExtensionMethodBasesToProjectInstances(
+                projectFilePath,
+                namespaceName,
+                extensionMethodBaseInterfaceNamespacedTypeNames,
+                this.UsingDirectivesFormatter);
+        }
+
+        private async Task CreateInstancesCodeFileAndClass()
+        {
+            // Inputs.
+            var projectFilePath = @"C:\Code\DEV\Git\GitHub\SafetyCone\Test\source\TestProject\TestProject.csproj";
+
+            var extensionMethodBaseInterfaceNamespacedTypeNames = new[]
+            {
+                "R5T.E0038.Lib.IServiceDefinitionOperator",
+                "R5T.T0060.IPredicateProvider",
+            };
+
+            // Run.
+            var instancesProjectDirectoryRelativeCodeFilePath = Instances.ProjectPathsOperator.GetInstancesCodeFileRelativePath();
+
+            var namespaceName = Instances.ProjectPathsOperator.GetDefaultProjectNamespaceName(projectFilePath);
+
+            await this.CompilationUnitContextProvider.InAcquiredCompilationUnitContext(
+                projectFilePath,
+                instancesProjectDirectoryRelativeCodeFilePath,
+                async (compilationUnitContext, compilationUnit) =>
+                {
+                    var outputCompilationUnit = await compilationUnitContext.InAcquiredNamespaceContext(
+                        compilationUnit,
+                        namespaceName,
+                        async (namespaceCompilationUnit, namespaceContext) =>
+                        {
+                            //var outputNamespaceCompilationUnit = namespaceCompilationUnit;
+
+                            var outputNamespaceCompilationUnit = await namespaceContext.InAcquiredClassContext(
+                                namespaceCompilationUnit,
+                                Instances.ClassName.Instances(),
+                                async (classCompilationUnit, classContext) =>
+                                {
+                                    var outputClassCompilationUnit = classCompilationUnit;
+
+                                    // Add usings.
+                                    var requiredNamespaces = extensionMethodBaseInterfaceNamespacedTypeNames
+                                        .Select(x => Instances.NamespacedTypeName.GetNamespaceName(x))
+                                        ;
+
+                                    // Add and format all usings.
+                                    outputClassCompilationUnit = await this.UsingDirectivesFormatter.AddAndFormatNamespaceNames(
+                                        outputClassCompilationUnit,
+                                        requiredNamespaces,
+                                        namespaceName);
+
+                                    // Now add instances.
+                                    var instanceTuples = Instances.Operation.GetInstanceTuples(
+                                        extensionMethodBaseInterfaceNamespacedTypeNames,
+                                        namespaceName);
+
+                                    var instanceProperties = Instances.PropertyGenerator.GetInstancesInstanceProperties(
+                                        instanceTuples)
+                                        // Indent.
+                                        .Select(xProperty => xProperty.Indent(
+                                            Instances.Indentation.Property()))
+                                        .Now();
+
+                                    outputClassCompilationUnit = classContext.ClassAnnotation.ModifySynchronous(outputClassCompilationUnit,
+                                        @class =>
+                                        {
+                                            // Determine new properties.
+                                            var existingProperties = @class.GetProperties();
+
+                                            var newProperties = instanceProperties.Except(existingProperties, InstancePropertyEqualityComparer.Instance);
+
+                                            var outputClass = @class.AddProperties(newProperties);
+
+                                            // Order properties by type name.
+                                            outputClass = outputClass.OrderPropertiesBy(xProperty =>
+                                            {
+                                                var typeName = xProperty.GetTypeExpressionText();
+                                                return typeName;
+                                            });
+
+                                            // Set the open and close brace trivia. This must be done after ordering since trivia is always leading trivia, so the first property needs to have been already decided.
+                                            outputClass = outputClass.EnsureBraceSpacing();
+
+                                            return outputClass;
+                                        });
+
+                                    return outputClassCompilationUnit;
+                                },
+                                () =>
+                                {
+                                    var outputInstancesClass = Instances.ClassGenerator.GetPublicStaticClass2(Instances.ClassName.Instances())
+                                        .IndentBlock(Instances.Indentation.Class())
+                                        ;
+
+                                    return outputInstancesClass;
+                                });
+
+                            return outputNamespaceCompilationUnit;
+                        });
+
+                    return outputCompilationUnit;
+                },
+                async (compilationUnitContext, compilationUnit) =>
+                {
+                    var outputCompilationUnit = compilationUnit;
+
+                    // Add usings idempotently.
+                    outputCompilationUnit = outputCompilationUnit.AddLotsOfUsings();
+
+                    // Format all usings.
+                    outputCompilationUnit = await this.UsingDirectivesFormatter.FormatUsingDirectives(
+                        outputCompilationUnit,
+                        namespaceName);
+
+                    return outputCompilationUnit;
+                });
         }
 
         private async Task TryCompilationUnitContext()
@@ -55,52 +196,9 @@ namespace R5T.E0046
                     var outputCompilationUnit = compilationUnit;
 
                     // Add usings idempotently.
-                    outputCompilationUnit = outputCompilationUnit
-                        .AddUsings(
-                            "System",
-                            "System.Threading.Tasks",
-                            "R5T.Lombardy",
-                            "R5T.T0020",
-                            "R5T.S0029.Library",
-                            "LocalData",
-                            "Microsoft.Extensions.Hosting",
-                            "R5T.D0088",
-                            "R5T.D0090",
-                            // Yes, repeats.
-                            "System",
-                            "System.Threading.Tasks",
-                            "Microsoft.Extensions.Configuration",
-                            "Microsoft.Extensions.DependencyInjection",
-                            "R5T.Magyar",
-                            "R5T.Ostrogothia.Rivet",
-                            "R5T.A0003",
-                            "R5T.D0048.Default",
-                            "R5T.D0077.A002",
-                            "R5T.D0078.A002",
-                            "R5T.D0079.A002",
-                            "R5T.D0081.I001",
-                            "R5T.D0083.I001",
-                            "R5T.D0088.I0002",
-                            "R5T.D0101.I0001",
-                            "R5T.D0101.I001",
-                            "R5T.D0108.I0001",
-                            "R5T.D0108.I001",
-                            "R5T.D0109.I0001",
-                            "R5T.D0109.I001",
-                            "R5T.T0063",
-                            "R5T.S0029.Library",
-                            // Local namespace name.
-                            "TestProject.Library")
-                        .AddUsings(
-                            ("IProvidedServiceActionAggregation", "R5T.D0088.I0002.IProvidedServiceActionAggregation"),
-                            ("ServicesPlatformRequiredServiceActionAggregation", "R5T.A0003.RequiredServiceActionAggregation"),
-                            ("IRequiredServiceActionAggregation", "R5T.D0088.I0002.IRequiredServiceActionAggregation"),
-                            ("Documentation", "TestProject.Documentation"),
-                            ("Instances", "TestProject.Code.Instances"),
-                            ("Glossary", "TestProject.Glossary"))
-                        ;
+                    outputCompilationUnit = outputCompilationUnit.AddLotsOfUsings();
 
-                    // Get all usings.
+                    // Now format usings.
                     outputCompilationUnit = await this.UsingDirectivesFormatter.FormatUsingDirectives(
                         outputCompilationUnit,
                         namespaceName);
@@ -120,6 +218,8 @@ namespace R5T.E0046
 
                     return outputCompilationUnit;
                 });
+
+#pragma warning restore IDE0051 // Remove unused private members
         }
     }
 }

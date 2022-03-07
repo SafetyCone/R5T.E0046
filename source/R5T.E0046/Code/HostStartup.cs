@@ -17,6 +17,8 @@ using R5T.D0083.I001;
 using R5T.D0088.I0002;
 using R5T.D0101.I0001;
 using R5T.D0101.I001;
+using R5T.D0116.A0001;
+using R5T.D0117.I001;
 using R5T.T0063;
 
 using R5T.E0046.Library;
@@ -88,27 +90,16 @@ namespace R5T.E0046
                 servicesPlatform.FileNameOperatorAction,
                 servicesPlatform.StringlyTypedPathOperatorAction);
 
+            // Level 00.
+            var usingDirectivesFormatterActions = Instances.ServiceAction.AddUsingDirectivesFormatterActions();
+
             // Level 01.
             var compilationUnitContextProviderAction = Instances.ServiceAction.AddCompilationUnitContextProviderAction(
                 servicesPlatform.StringlyTypedPathOperatorAction,
                 visualStudioProjectFileOperatorActions.VisualStudioProjectFileOperatorAction,
                 visualStudioProjectFileReferencesProviderAction,
                 visualStudioSolutionFileOperatorActions.VisualStudioSolutionFileOperatorAction);
-            var usingNameAliasDirectiveBlockLabelProviderAction = Instances.ServiceAction.AddUsingNameAliasDirectiveBlockLabelProviderAction();
-            var usingNameAliasDirectiveBlockSortOrderProviderAction = Instances.ServiceAction.AddRivetUsingNameAliasDirectiveBlockSortOrderProviderAction();
-            var usingNameAliasDirectiveComparerProviderAction = Instances.ServiceAction.AddAlphabeticalUsingNameAliasDirectiveComparerProviderAction();
-            var usingNamespaceDirectiveBlockLabelProviderAction = Instances.ServiceAction.AddUsingNamespaceDirectiveBlockLabelProviderAction();
-            var usingNamespaceDirectiveBlockSortOrderProviderAction = Instances.ServiceAction.AddRivetUsingNamespaceDirectiveBlockSortOrderProviderAction();
-            var usingNamespaceDirectiveComparerProviderAction = Instances.ServiceAction.AddAlphabeticalUsingNamespaceDirectiveComparerProviderAction();
-
-            // Level 02.
-            var usingDirectivesFormatterAction = Instances.ServiceAction.AddUsingDirectivesFormatterAction(
-                usingNameAliasDirectiveBlockLabelProviderAction,
-                usingNameAliasDirectiveBlockSortOrderProviderAction,
-                usingNameAliasDirectiveComparerProviderAction,
-                usingNamespaceDirectiveBlockLabelProviderAction,
-                usingNamespaceDirectiveBlockSortOrderProviderAction,
-                usingNamespaceDirectiveComparerProviderAction);
+            
 
             // Operations.
 
@@ -116,7 +107,7 @@ namespace R5T.E0046
             var o999_ScratchAction = Instances.ServiceAction.AddO999_ScratchAction(
                 compilationUnitContextProviderAction,
                 servicesPlatform.StringlyTypedPathOperatorAction,
-                usingDirectivesFormatterAction);
+                usingDirectivesFormatterActions.UsingDirectivesFormatterAction);
 
             // Run.
             services.MarkAsServiceCollectonConfigurationStatement()

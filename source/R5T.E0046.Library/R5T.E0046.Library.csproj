@@ -10,17 +10,26 @@
     <ProjectReference Include="..\..\..\R5T.B0001\source\R5T.B0001.X001\R5T.B0001.X001.csproj" />
     <ProjectReference Include="..\..\..\R5T.B0002.X0001\source\R5T.B0002.X0001\R5T.B0002.X0001.csproj" />
     <ProjectReference Include="..\..\..\R5T.B0002\source\R5T.B0002.X001\R5T.B0002.X001.csproj" />
+    <ProjectReference Include="..\..\..\R5T.B0004.X0001\source\R5T.B0004.X0001\R5T.B0004.X0001.csproj" />
+    <ProjectReference Include="..\..\..\R5T.B0004\source\R5T.B0004.X001\R5T.B0004.X001.csproj" />
     <ProjectReference Include="..\..\..\R5T.D0078\source\R5T.D0078.Base\R5T.D0078.Base.csproj" />
     <ProjectReference Include="..\..\..\R5T.D0079\source\R5T.D0079.Base\R5T.D0079.Base.csproj" />
     <ProjectReference Include="..\..\..\R5T.D0083\source\R5T.D0083.Base\R5T.D0083.Base.csproj" />
+    <ProjectReference Include="..\..\..\R5T.D0116\source\R5T.D0116.X001\R5T.D0116.X001.csproj" />
+    <ProjectReference Include="..\..\..\R5T.D0116\source\R5T.D0116\R5T.D0116.csproj" />
     <ProjectReference Include="..\..\..\R5T.L0011\source\R5T.L0011\R5T.L0011.csproj" />
+    <ProjectReference Include="..\..\..\R5T.T0040\source\R5T.T0040.X000\R5T.T0040.X000.csproj" />
     <ProjectReference Include="..\..\..\R5T.T0040\source\R5T.T0040.X001\R5T.T0040.X001.csproj" />
     <ProjectReference Include="..\..\..\R5T.T0044\source\R5T.T0044.X001\R5T.T0044.X001.csproj" />
     <ProjectReference Include="..\..\..\R5T.T0045\source\R5T.T0045.X001\R5T.T0045.X001.csproj" />
     <ProjectReference Include="..\..\..\R5T.T0062\source\R5T.T0062.X001\R5T.T0062.X001.csproj" />
     <ProjectReference Include="..\..\..\R5T.T0098\source\R5T.T0098\R5T.T0098.csproj" />
+    <ProjectReference Include="..\..\..\R5T.T0126\source\R5T.T0126\R5T.T0126.csproj" />
+    <ProjectReference Include="..\..\..\R5T.T0127\source\R5T.T0127.X001\R5T.T0127.X001.csproj" />
     <ProjectReference Include="..\..\..\R5T.X0002\source\R5T.X0002\R5T.X0002.csproj" />
-    <ProjectReference Include="..\R5T.E0046.T001\R5T.E0046.T001.csproj" />
+    <ProjectReference Include="..\..\..\R5T.X0003\source\R5T.X0003.X002\R5T.X0003.X002.csproj" />
+    <ProjectReference Include="..\..\..\R5T.X0003\source\R5T.X0003.X003\R5T.X0003.X003.csproj" />
+    <ProjectReference Include="..\..\..\R5T.X0003\source\R5T.X0003\R5T.X0003.csproj" />
   </ItemGroup>
 
 </Project>
