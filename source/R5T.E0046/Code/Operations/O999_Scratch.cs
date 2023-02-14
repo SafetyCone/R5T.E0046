@@ -115,7 +115,7 @@ namespace R5T.E0046
                                     var instanceProperties = Instances.PropertyGenerator.GetInstancesInstanceProperties(
                                         instanceTuples)
                                         // Indent.
-                                        .Select(xProperty => xProperty.Indent(
+                                        .Select(xProperty => xProperty.IndentBlock_Old(
                                             Instances.Indentation.Property()))
                                         .Now();
 

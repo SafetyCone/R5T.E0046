@@ -13,7 +13,7 @@ namespace R5T.E0046
     public static partial class IServiceActionExtensions
     {
         /// <summary>
-        /// Adds the <see cref="O999_Scratch"/> operation as a <see cref="ServiceLifetime.Singleton"/>.
+        /// Adds the <see cref="O999_Scratch"/> operation as a <see cref="Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>.
         /// </summary>
         public static IServiceAction<O999_Scratch> AddO999_ScratchAction(this IServiceAction _,
             IServiceAction<ICompilationUnitContextProvider> compilationUnitContextProviderAction,
